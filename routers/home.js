@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 
-
-=======
->>>>>>> a119ddce53501361c610dc1cf2888e5732cdcc45
 const express = require('express');
 const Router = express.Router();
 const Club = require('../models/club');
