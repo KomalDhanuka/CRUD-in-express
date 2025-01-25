@@ -3,8 +3,11 @@ const mongoos = require('mongoose');
 const bodyParser = require('body-parser');
 const homeRoutes = require('./routers/home');
 
+
 const app = express();
-const port =3002;
+const port =3004;
+app.use('/uploads', express.static('uploads'));
+
 
 mongoos.connect("mongodb://localhost:27017/studentdetails", {useNewUrlParser : true})
 const db = mongoos.connection;
