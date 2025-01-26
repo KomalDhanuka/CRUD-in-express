@@ -77,9 +77,17 @@ Router.get('/edit/:id', async (req, res) => {
 });
 
 // Edit form submission
-Router.post('/edit/:id', async (req, res) => {
+Router.post('/edit/:id', upload.single('uploaded_file'), async (req, res) => {
     try {
-        await Club.findByIdAndUpdate({ _id: req.params.id }, req.body);
+        const { name, email } = req.body;
+        let updatedData = { name, email };
+        
+        if (req.file) {
+            updatedData.uploaded_file = req.file.path;  // Add the new file path if a file is uploaded
+        }
+        
+        const doc = await Club.findByIdAndUpdate(req.params.id, updatedData, { new: true });
+        
         res.redirect('/show');
     } catch (err) {
         console.log("Error while updating:", err);
