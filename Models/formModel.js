@@ -10,6 +10,10 @@ const DataSchema = new mongoose.Schema({
         type:String,
         required:true
     },
+    uploaded_file:{
+        type:Buffer,
+        required:true
+    },
     CreateDate:{
         type:Date,
         default : Date.now()

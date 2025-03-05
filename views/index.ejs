@@ -10,37 +10,44 @@
 <body>
     <div class="navbar">
         <ul>
-            <li><a class="http://localhost:3002/" href="#">Home</a></li>
+            <li><a href="#">Home</a></li>
             <li><a href="/show">Show</a></li>
-            
-          </ul>
-       </div>
+        </ul>
+    </div>
 
-        
-  <div>
-
-
-    <div>
-        <form method="post" action="/add">
+    <div class="form-container">
+        <form method="post" enctype="multipart/form-data" action="/add">
             <div class="form">
-                <div class="title">Add </div>
+                <div class="title">Add</div>
                 <div class="subtitle">Let's add some data</div>
     
-                <div class="input-container ic1">
-                  <input name="name" class="input" type="text" placeholder=" " />
-                  <div class="cut"></div>
-                  <label for="firstname" class="placeholder">Name</label>
+                <div class="input-container">
+                    <input name="name" class="input" type="text" placeholder=" " />
+                    <div class="cut"></div>
+                    <label for="firstname" class="placeholder">Name</label>
                 </div>
-               
-                <div class="input-container ic2">
-                  <input name="email" class="input" type="text" placeholder=" " />
-                  <div class="cut cut-short"></div>
-                  <label for="email" class="placeholder">Email</>
+
+                <div class="input-container">
+                    <input name="email" class="input" type="text" placeholder=" " />
+                    <div class="cut"></div>
+                    <label for="email" class="placeholder">Email</label>
                 </div>
-    
+
+                <!-- Image upload section -->
+                <div class="input-container" style="  background-color: #303245; height: 50px; border-radius: 11px; display: flex; justify-content: center; align-items: center;  color: #808097; font-size: 22px;">
+                    <input type="file" class="file-input" name="uploaded_file" id="uploaded_file" accept="image/*"   />
+                    <div class="cut cut-short"></div>
+                </div>
+
+                <!-- <div class="upload-button-container">
+                    <div class="upload-button" onclick="document.getElementById('uploaded_file').click();">
+                        Upload Image
+                    </div>
+                </div> -->
+
                 <button type="submit" class="submit">Save</button>
             </div>
         </form>   
-      </div>
+    </div>
 </body>
 </html>

@@ -38,8 +38,15 @@ const bodyParser = require('body-parser');
 const homeRoutes = require('./routers/home');
 const serverless = require('serverless-http');  // Import serverless-http
 
+
 const app = express();
+<<<<<<< HEAD
 const port = process.env.PORT || 3002; // Netlify assigns the PORT dynamically
+=======
+const port =3004;
+app.use('/uploads', express.static('uploads'));
+
+>>>>>>> 12c2209c266d588f9e452c5b706dd1a3da883db1
 
 mongoose.connect("mongodb://localhost:27017/studentdetails", { useNewUrlParser: true });
 const db = mongoose.connection;

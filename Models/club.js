@@ -1,5 +1,5 @@
-const mongoos = require('mongoose');
-const schema = mongoos.Schema;
+const mongoose = require('mongoose');
+const schema = mongoose.Schema;
 
 let clubScheema = new schema({
     name :{
@@ -7,7 +7,10 @@ let clubScheema = new schema({
     },
     email:{
         type :String
+    },
+    uploaded_file:{
+        type :Buffer
     }
 })
 
-module.exports = mongoos.model('student', clubScheema)
+module.exports = mongoose.model('student', clubScheema)

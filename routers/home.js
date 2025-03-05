@@ -1,8 +1,26 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 12c2209c266d588f9e452c5b706dd1a3da883db1
 
 const express = require('express');
 const Router = express.Router();
 const Club = require('../models/club');
+const multer  = require('multer')
+// const upload = multer({ dest: 'uploads/' })
+
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+      cb(null, 'uploads/')
+    },
+    filename: function (req, file, cb) {
+      const uniqueSuffix =   Math.round(Math.random() * 1E9)
+      cb(null, uniqueSuffix + '-' + '.png'); // Unique filename
+    }
+  })
+  const upload = multer({ storage: storage });
+
 
 // Render the index page
 Router.get('/', (req, res) => {
@@ -10,13 +28,19 @@ Router.get('/', (req, res) => {
 });
 
 // Create / insert data
-Router.post('/add', async (req, res) => {
-    const name = req.body.name;
-    const email = req.body.email;
+Router.post('/add',upload.single('uploaded_file'), async (req, res) => {
+    const {name, email} = req.body;
+    // const email = req.body.email;
+    const uploaded_file=req.file.path;
+
+    if (!uploaded_file) {
+        return res.status(400).send('No file uploaded.');
+    }
 
     const club = new Club({
         name,
-        email
+        email,
+         uploaded_file
     });
 
     try {
@@ -57,9 +81,17 @@ Router.get('/edit/:id', async (req, res) => {
 });
 
 // Edit form submission
-Router.post('/edit/:id', async (req, res) => {
+Router.post('/edit/:id', upload.single('uploaded_file'), async (req, res) => {
     try {
-        await Club.findByIdAndUpdate({ _id: req.params.id }, req.body);
+        const { name, email } = req.body;
+        let updatedData = { name, email };
+        
+        if (req.file) {
+            updatedData.uploaded_file = req.file.path;  // Add the new file path if a file is uploaded
+        }
+        
+        const doc = await Club.findByIdAndUpdate(req.params.id, updatedData, { new: true });
+        
         res.redirect('/show');
     } catch (err) {
         console.log("Error while updating:", err);
